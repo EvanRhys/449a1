@@ -21,7 +21,7 @@ public class Driver {
 	public static final String input = "ABCDEFGH";
 	public static final char empty = 'X';
 	/*******
-	 * @param args arguments passed, args[0] should be input file name
+	 * @param args arguments passed, args[0] should be input file name, args[1] should be output file name
 	 * @throws IOException 
 	 * reads file and builds data structure
 	 * Initializes Hard and Soft Constraints

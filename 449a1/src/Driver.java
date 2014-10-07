@@ -89,8 +89,7 @@ public class Driver {
 			sTree.searchR(input, "", 1, 0, empty);
 			output = sTree.getBestString();
 			score = sTree.getBestScore();
-			if (output.equalsIgnoreCase("No valid solution possible!"));
-			else
+			if (!output.equalsIgnoreCase("No valid solution possible!"))
 				output = "Solution " + output + "; Quality:" + score;
 			writeOutput(output, outputFile);
 		} catch (FileNotFoundException e) {

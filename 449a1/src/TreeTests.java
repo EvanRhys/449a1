@@ -12,6 +12,8 @@ public class TreeTests{
 	private static Node[] tNT; 
 	private static Node[] tNP;
 	private static int[][] mP;
+	private static String input;
+	private static char empty;
 
 	@Before
 	public void setUp() throws Exception {
@@ -20,20 +22,40 @@ public class TreeTests{
 		tNT = new Node[8];
 		tNP = new Node[8];
 		mP = new int[8][8];
+		input = "ABCDEFGH";
+		empty = 'X';
 	}
 
 	@After
-	protected void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 		fcN = null;
 		fbN = null;
 		tNT = null;
 		tNP = null;
 		mP = null;
+		input = null;
 	}
 
 	@Test
-	public void test()
+	public void simpleTest()
 	{
-		assertEquals(1,1);
+		fcN[0] = new forcedNode('1','B');
+		
+		fbN[1] = new forbiddenNode('2', 'A');
+		
+		tNT[2] = new nearTaskNode('D', 'A');
+		
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				mP[i][j] = 1;
+			}
+		}
+		
+		mP[0][1] = 4;
+		
+		tree = new Tree(new HardConstraints(fcN, fbN, tNT), new SoftConstraints(tNP, mP));
+		tree.searchR(input, "", 1, 0, empty);
+		assertEquals("BCDAEFGH", tree.getBestString());
+		assertEquals(11, tree.getBestScore());
 	}
 }

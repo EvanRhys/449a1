@@ -9,9 +9,10 @@
 public class Node {
 	protected Node next;
 	protected int computer;
+	protected int penalty;
 	protected char task;
 	protected char secondTask;
-	protected int penalty;
+
 	
 	public Node(){}
 	public Node(Node next){

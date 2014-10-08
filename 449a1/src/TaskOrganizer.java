@@ -2,13 +2,14 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class TaskOrganizer {
+	private final String input = "ABCDEFGH";
+	private final char empty = 'X';
+	
 	private int [][] linePen;
 	private Node [] tooNearPen;
 	private Node [] forcedPart;
 	private Node [] forbiddenM;
 	private Node [] tooNearTask;
-	private final String input = "ABCDEFGH";
-	private final char empty = 'X';
 	private HardConstraints HC;
 	private SoftConstraints SC;
 	private Tree sTree;
@@ -23,14 +24,13 @@ public class TaskOrganizer {
 		forbiddenM = new Node[8];
 		tooNearTask = new Node[8];
 		this.inputFile = inputFile;
-		this.outputFile = outputFile;
-		
+		this.outputFile = outputFile;		
+		HC = null;
+		SC = null;
 	}
 	
-	public void Start() throws IOException{
+	public void readFile() throws IOException{
 		String line;
-		String output;
-		int score;
 		int keyWordCount = 0;
 		FileReader fr;
 		BufferedReader br;
@@ -67,41 +67,43 @@ public class TaskOrganizer {
 					throw new ParsingInputException();//added to throw error when garbage is read, garbage
 			}
 			fr.close();
-			HC = new HardConstraints(forcedPart, forbiddenM , tooNearTask);
-			SC = new SoftConstraints(tooNearPen, linePen);
-			sTree = new Tree(HC, SC);
 			if (keyWordCount != 5)
 				throw new ParsingInputException();
+			HC = new HardConstraints(forcedPart, forbiddenM , tooNearTask);
+			SC = new SoftConstraints(tooNearPen, linePen);
+		} catch (FileNotFoundException e){
+			e.printStackTrace();
+		} catch (PartialAssignmentException e){
+			writeOutput("partial assignment error", outputFile);
+		} catch (ParsingInputException e){
+			writeOutput("Error while parsing input file", outputFile);
+		} catch (InvalidInputException e){
+			writeOutput("invalid machine/task", outputFile);
+		} catch (MachinePenException e){
+			writeOutput("machine penalty error", outputFile);
+		} catch (InvalidPenException e){
+			writeOutput("invalid penalty", outputFile);
+		} catch (InvalidTaskException e){
+			writeOutput("invalid task", outputFile);
+		}		
+	}
+	public void runSearch()throws FileNotReadException, IOException{
+		if (HC != null){
+			String output;
+			int score;
+			sTree = new Tree(HC, SC);
+
 			sTree.searchR(input, "", 1, 0, empty);
 			output = sTree.getBestString();
 			score = sTree.getBestScore();
 			if (!output.equalsIgnoreCase("No valid solution possible!"))
 				output = "Solution " + output + "; Quality:" + score;
 			writeOutput(output, outputFile);
-		} catch (FileNotFoundException e){
-			e.printStackTrace();
-		} catch (IOException e){
-			e.printStackTrace();
-		} catch (PartialAssignmentException e){
-			output = "partial assignment error";
-			writeOutput(output, outputFile);
-		} catch (ParsingInputException e){
-			output = "Error while parsing input file";
-			writeOutput(output, outputFile);
-		} catch (InvalidInputException e){
-			output = "invalid machine/task";
-			writeOutput(output, outputFile);
-		} catch (MachinePenException e){
-			output = "machine penalty error";
-			writeOutput(output, outputFile);
-		} catch (InvalidPenException e){
-			output = "invalid penalty";
-			writeOutput(output, outputFile);
-		} catch (InvalidTaskException e){
-			output = "invalid task";
-			writeOutput(output, outputFile);
 		}
-		
+		else{
+			throw new FileNotReadException(); 
+		}
+			
 	}
 	/*******
 	 * @param br

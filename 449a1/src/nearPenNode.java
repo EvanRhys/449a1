@@ -4,7 +4,7 @@
  * @author team 1-1 
  * for the Too-near penalty data structure
  */
-public class nearPenNode extends Node{
+public class nearPenNode extends NodeWPen{
 /****
  * @param task First task being added, i in (i,i+1,x)
  * @param secondTask Second task being added, i+1 in (i,i+1,x)

@@ -16,19 +16,19 @@ public class SoftConstraints {
 	public SoftConstraints(Node [] A, int[][] B){
 		int i;
 		int [] penalty; //changed since new array is created in the loop, toonearpen1/2
-		Node current;
+		NodeWPen current;
 		tooNearPenalty = new ArrayList<int[]>();
 		
 		for(i = 0; i < 8; i++){
 			if (A[i] != null){
-				current = A[i];
+				current = (NodeWPen) A[i];
 				while(current != null){
 					penalty = new int[3]; //changed to create new array every time, toonearpen1/2
 					penalty[0] = (current.getTask() - 1) % 8;
 					penalty[1] = (current.getSecondTask() - 1) % 8;
 					penalty[2] = current.getPenalty();
 					tooNearPenalty.add(penalty);
-					current = current.getNext();
+					current = (NodeWPen)current.getNext();
 				}				
 			}
 		}		

@@ -4,7 +4,7 @@
  * @author team 1-1 
  * for the forbidden machine data structure
  */
-public class forbiddenNode extends Node{
+public class forbiddenNode extends NodeWComp{
 /****
  * @param mach the machine being added
  * @param task the task being added

@@ -7,9 +7,7 @@
  * Contains all getters and setters
  */
 public class Node {
-	protected Node next;
-	protected int computer;
-	protected int penalty;
+	protected Node next;		
 	protected char task;
 	protected char secondTask;
 
@@ -23,18 +21,6 @@ public class Node {
 	}
 	public void setNext(Node next) {
 		this.next = next;
-	}
-	public int getComputer() {
-		return computer;
-	}
-	public void setComputer(int computer) {
-		this.computer = computer;
-	}
-	public int getPenalty() {
-		return penalty;
-	}
-	public void setPenalty(int penalty) {
-		this.penalty = penalty;
 	}
 	public char getTask() {
 		return task;

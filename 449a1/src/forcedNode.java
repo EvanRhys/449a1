@@ -4,7 +4,7 @@
  * @author team 1-1 
  * for the Forced Partial Assignment data structure
  */
-public class forcedNode extends Node{
+public class forcedNode extends NodeWComp{
 /****
  * @param mach machine number being added
  * @param task task being added

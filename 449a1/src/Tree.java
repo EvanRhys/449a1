@@ -18,7 +18,6 @@ public class Tree {
 	private String bestString;	
 	private HardConstraints HC;
 	private SoftConstraints SC;
-	
 	public Tree(){
 		bestScore = -1;
 		bestString = "No valid solution possible!";
@@ -50,12 +49,12 @@ public class Tree {
 	 * 	this insures that when the recursive call is closed the parent still has the same values to work with
 	 * finally when the remaining string is empty the score is checked one last time against the best and if better it is saved
 	 */
-	public boolean searchR(searchRParameter last){
+	public boolean searchR(SearchRParameter last){
 		String temp [];
 		int count = 0;
 		char task;
 		CharSequence seq;
-		searchRParameter next = new searchRParameter();
+		SearchRParameter next = new SearchRParameter();
 		
 		if (last.getRemaining().length() != 0){
 			while(count < last.getRemaining().length()){
@@ -84,7 +83,7 @@ public class Tree {
 						return false;
 				}
 				else{
-					task = last.getRemaining().charAt(count);
+					task =  last.getRemaining().charAt(count);
 					if (HC.constraint(last.getMachineNumb(), task, last.getLastTask())){
 						next.setPenalty(last.getPenalty() + SC.getPenalty(last.getMachineNumb(), task, last.getLastTask()));
 						if ((last.getPenalty() < bestScore) || (bestScore == -1)){

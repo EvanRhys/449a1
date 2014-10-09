@@ -25,9 +25,9 @@ public class TaskOrganizerTest {
 	}
 	
 	@Test
-	public void twowrong() {
-		TaskOrganizer TO =  new TaskOrganizer("2wrong.txt", "outfile1");
+	public void twowrong() {		
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("2wrong.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -38,8 +38,8 @@ public class TaskOrganizerTest {
 
 	@Test
 	public void asymmetrical() {
-		TaskOrganizer TO =  new TaskOrganizer("asymmetrical.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("asymmetrical.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -49,8 +49,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void garbage() {
-		TaskOrganizer TO =  new TaskOrganizer("garbage.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("garbage.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -60,8 +60,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void invalid2() {
-		TaskOrganizer TO =  new TaskOrganizer("invalid2.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("invalid2.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -71,8 +71,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void invalidforbidden() {
-		TaskOrganizer TO =  new TaskOrganizer("invalidforbidden.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("invalidforbidden.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -81,8 +81,8 @@ public class TaskOrganizerTest {
 		assertEquals("No valid solution possible!", readFile("outfile1"));
 	}	@Test
 	public void invalidtoonear() {
-		TaskOrganizer TO =  new TaskOrganizer("invalidtoonear.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("invalidtoonear.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -91,8 +91,8 @@ public class TaskOrganizerTest {
 		assertEquals("No valid solution possible!", readFile("outfile1"));
 	}	@Test
 	public void machpen1() {
-		TaskOrganizer TO =  new TaskOrganizer("machpen1.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("machpen1.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -102,8 +102,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void machpen2() {
-		TaskOrganizer TO =  new TaskOrganizer("machpen2.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("machpen2.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -113,8 +113,8 @@ public class TaskOrganizerTest {
 	}	
 	@Test
 	public void nochoice() {
-		TaskOrganizer TO =  new TaskOrganizer("nochoice.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("nochoice.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -124,8 +124,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void nochoice2() {
-		TaskOrganizer TO =  new TaskOrganizer("nochoice2.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("nochoice2.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -135,8 +135,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void testfile1() {
-		TaskOrganizer TO =  new TaskOrganizer("testfile1", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("testfile1", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -146,8 +146,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void toonearpen1() {
-		TaskOrganizer TO =  new TaskOrganizer("toonearpen1.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("toonearpen1.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -157,8 +157,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void toonearpen2() {
-		TaskOrganizer TO =  new TaskOrganizer("toonearpen2.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("toonearpen2.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -168,8 +168,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void wrongmachine() {
-		TaskOrganizer TO =  new TaskOrganizer("wrongmachine.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("wrongmachine.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -179,8 +179,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void wrongmachpenalty1() {
-		TaskOrganizer TO =  new TaskOrganizer("wrongmachpenalty1.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("wrongmachpenalty1.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -190,8 +190,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void wrongmachpenalty2() {
-		TaskOrganizer TO =  new TaskOrganizer("wrongmachpenalty2.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("wrongmachpenalty2.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -201,8 +201,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void wrongnumbertoonear() {
-		TaskOrganizer TO =  new TaskOrganizer("wrongnumbertoonear.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("wrongnumbertoonear.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){
@@ -212,8 +212,8 @@ public class TaskOrganizerTest {
 	}
 	@Test
 	public void wrongpartialassignment() {
-		TaskOrganizer TO =  new TaskOrganizer("wrongpartialassignment.txt", "outfile1");
 		try{
+			TaskOrganizer TO =  new TaskOrganizer("wrongpartialassignment.txt", "outfile1");
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){

@@ -16,25 +16,25 @@ public class HardConstraintTest {
 		Node[] tooNearTask = new Node[8];
 		Node current;
 		
-		forcedPart[1] = new forcedNode('2', 'A');
-		forcedPart[2] = new forcedNode('3', 'E');
-		forcedPart[3] = new forcedNode('4', 'C');
-		forcedPart[7] = new forcedNode('8', 'H');
+		forcedPart[1] = new ForcedNode('2', 'A');
+		forcedPart[2] = new ForcedNode('3', 'E');
+		forcedPart[3] = new ForcedNode('4', 'C');
+		forcedPart[7] = new ForcedNode('8', 'H');
 		
-		forbiddenM[0] = new forbiddenNode('1', 'C');
+		forbiddenM[0] = new ForbiddenNode('1', 'C');
 		current = forbiddenM[0];
-		current.setNext(new forbiddenNode('1', 'B'));
+		current.setNext(new ForbiddenNode('1', 'B'));
 		current = current.getNext();
-		current.setNext(new forbiddenNode('1', 'D'));
-		forbiddenM[6] = new forbiddenNode('7', 'G');
+		current.setNext(new ForbiddenNode('1', 'D'));
+		forbiddenM[6] = new ForbiddenNode('7', 'G');
 		
-		tooNearTask[0] = new nearTaskNode('A','D');
-		tooNearTask[1] = new nearTaskNode('B','C');
+		tooNearTask[0] = new NearTaskNode('A','D');
+		tooNearTask[1] = new NearTaskNode('B','C');
 		current = tooNearTask[1];
-		current.setNext(new nearTaskNode('B','G'));
+		current.setNext(new NearTaskNode('B','G'));
 		current = current.getNext();
-		current.setNext(new nearTaskNode('B','H'));
-		tooNearTask[4] = new nearTaskNode('E','F');
+		current.setNext(new NearTaskNode('B','H'));
+		tooNearTask[4] = new NearTaskNode('E','F');
 		
 		HC = new HardConstraints( forcedPart, forbiddenM, tooNearTask );
 	}
@@ -46,51 +46,51 @@ public class HardConstraintTest {
 	
 	@Test(expected =  InvalidInputException.class)
 	public void invalidFocredMachLow() {
-		new forcedNode('0', 'A');
+		new ForcedNode('0', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidFocredMachHigh(){
-		new forcedNode('9', 'A');
+		new ForcedNode('9', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidFocredTaskLow(){
-		new forcedNode('2', '9');
+		new ForcedNode('2', '9');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidFocredTaskHigh(){
-		new forcedNode('2', 'I');
+		new ForcedNode('2', 'I');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidForbidMachLow() {
-		new forbiddenNode('0', 'A');
+		new ForbiddenNode('0', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidForbidMachHigh(){
-		new forbiddenNode('9', 'A');
+		new ForbiddenNode('9', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidForbidTaskLow(){
-		new forbiddenNode('2', '9');
+		new ForbiddenNode('2', '9');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidForbidTaskHigh(){
-		new forbiddenNode('2', 'I');
+		new ForbiddenNode('2', 'I');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidNearFirstLow() {
-		new nearTaskNode('9', 'A');
+		new NearTaskNode('9', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidNearFirstHigh(){
-		new nearTaskNode('I', 'A');
+		new NearTaskNode('I', 'A');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidNearSecLow(){
-		new nearTaskNode('A', '9');
+		new NearTaskNode('A', '9');
 	}
 	@Test(expected =  InvalidInputException.class)
 	public void invalidNearSecHigh(){
-		new nearTaskNode('A', 'I');
+		new NearTaskNode('A', 'I');
 	}
 	@Test
 	public void forcedPartAssignmentTrue(){

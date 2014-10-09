@@ -4,13 +4,13 @@
  * @author team 1-1 
  * for the Too-near Task data structure
  */
-public class nearTaskNode extends Node{
+public class NearTaskNode extends Node{
 /****
  * @param task First task being added i, in (i, i+1)
  * @param secondTask Second task being added i+1, in (i, i+1)
  * @throws InvalidInputException thrown when either task is invalid, or both tasks are the same.
  */
-	public nearTaskNode(char task, char secondTask) throws InvalidInputException {
+	public NearTaskNode(char task, char secondTask) throws InvalidInputException {
 		if (task == secondTask)
 			throw new InvalidInputException();
 		if ((task >= 65) && (task <= 72))

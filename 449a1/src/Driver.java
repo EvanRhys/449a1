@@ -24,8 +24,8 @@ public class Driver {
 	 * catches any error and writes proper error to file
 	 */
 	public static void main(String[] args){
-		TaskOrganizer TO = new TaskOrganizer(args[0], args[1]);
 		try{
+			TaskOrganizer TO = new TaskOrganizer(args[0], args[1]);
 			if(TO.readFile())
 				TO.runSearch();
 		}catch(IOException e){

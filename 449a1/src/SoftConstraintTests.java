@@ -14,10 +14,10 @@ public class SoftConstraintTests{
 			int[][] machPen = new int[8][8];
 			Node current;
 			
-			tooNearPen[0] = new nearPenNode('A','B', 299);
+			tooNearPen[0] = new NearPenNode('A','B', 299);
 			current = tooNearPen[0];
-			current.setNext(new nearPenNode('A','C', 75));
-			tooNearPen[2] = new nearPenNode('C','D', 61);
+			current.setNext(new NearPenNode('A','C', 75));
+			tooNearPen[2] = new NearPenNode('C','D', 61);
 			int k = 1;
 			for (int i = 0; i < 8; i++){
 				for (int j = 0; j < 8; j++){
@@ -34,23 +34,23 @@ public class SoftConstraintTests{
 		
 		@Test(expected = ParsingInputException.class)
 		public void testParsingInput(){
-			new nearPenNode('A','A',20);
+			new NearPenNode('A','A',20);
 		}
 		@Test(expected = InvalidTaskException.class)
 		public void InvalidFirstTaskLow(){
-			new nearPenNode('9','A',20);
+			new NearPenNode('9','A',20);
 		}
 		@Test(expected = InvalidTaskException.class)
 		public void InvalidFirstTaskHigh(){
-			new nearPenNode('I','A',20);
+			new NearPenNode('I','A',20);
 		}
 		@Test(expected = InvalidTaskException.class)
 		public void InvalidSecTaskLow(){
-			new nearPenNode('A','9',20);
+			new NearPenNode('A','9',20);
 		}
 		@Test(expected = InvalidTaskException.class)
 		public void InvalidSecTaskHigh(){
-			new nearPenNode('A','I',20);
+			new NearPenNode('A','I',20);
 		}
 		@Test
 		public void machPen(){

@@ -4,7 +4,7 @@
  * @author team 1-1 
  * for the Too-near penalty data structure
  */
-public class nearPenNode extends NodeWPen{
+public class NearPenNode extends NodeWPen{
 /****
  * @param task First task being added, i in (i,i+1,x)
  * @param secondTask Second task being added, i+1 in (i,i+1,x)
@@ -12,7 +12,7 @@ public class nearPenNode extends NodeWPen{
  * @throws ParsingInputException
  * @throws InvalidTaskException
  */
-	public nearPenNode(char task, char secondTask, int penalty) throws ParsingInputException{
+	public NearPenNode(char task, char secondTask, int penalty) throws ParsingInputException{
 		if (task == secondTask)
 			throw new ParsingInputException();
 		if ((task >= 65) && (task <= 72))

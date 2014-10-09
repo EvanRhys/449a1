@@ -4,13 +4,13 @@
  * @author team 1-1 
  * for the forbidden machine data structure
  */
-public class forbiddenNode extends NodeWComp{
+public class ForbiddenNode extends NodeWComp{
 /****
  * @param mach the machine being added
  * @param task the task being added
  * @throws InvalidInputException thrown when invalid task or machine number
  */
-	public forbiddenNode(char mach, char task) throws InvalidInputException {
+	public ForbiddenNode(char mach, char task) throws InvalidInputException {
 		if ((mach >= 49) && (mach <= 56))
 			computer = mach - 48;
 		else 

@@ -13,19 +13,19 @@ public class TaskOrganizer {
 	private HardConstraints HC;
 	private SoftConstraints SC;
 	private Tree sTree;
+	private String outputFile;	
 	private String inputFile;
-	private String outputFile;
 	private BufferedReader br;
 	
 	public TaskOrganizer(){}
-	public TaskOrganizer(String inputFile, String outputFile){
+	public TaskOrganizer(String inputFile, String outputFile) throws FileNotFoundException, IOException{
 		linePen = new int[8][8];
 		tooNearPen = new Node[8];
+		tooNearTask = new Node[8];
 		forcedPart = new Node[8];
 		forbiddenM = new Node[8];
-		tooNearTask = new Node[8];
 		this.inputFile = inputFile;
-		this.outputFile = outputFile;		
+		this.outputFile = outputFile;	
 		HC = null;
 		SC = null;
 	}
@@ -43,7 +43,7 @@ public class TaskOrganizer {
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("forbidden machine:")){
-					forbiddenMachine();
+					forbiddenMachine();					
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("too-near tasks:")){
@@ -102,7 +102,7 @@ public class TaskOrganizer {
 			int score;
 			sTree = new Tree(HC, SC);
 
-			sTree.searchR(new searchRParameter(input, "", 1, 0, empty));
+			sTree.searchR(new SearchRParameter(input, "", 1, 0, empty));
 			output = sTree.getBestString();
 			score = sTree.getBestScore();
 			if (!output.equalsIgnoreCase("No valid solution possible!"))
@@ -133,7 +133,7 @@ public class TaskOrganizer {
 				throw new InvalidInputException();
 			seq = Character.toString((c));
 			if ((forcedPart[i] == null) && (compare.contains(seq)))
-				forcedPart[i] = new forcedNode(line.charAt(1), line.charAt(3));
+				forcedPart[i] = new ForcedNode(line.charAt(1), line.charAt(3));
 			else{
 				if ((c >= 65) && (c <= 72))
 					throw new PartialAssignmentException();
@@ -202,13 +202,13 @@ public class TaskOrganizer {
 		while (((line = br.readLine()).length() > 0)&&((line.charAt(0)) != ' ')){
 			i = ((line.charAt(1) - 1) %8);
 			if (forbiddenM[i] == null)
-				forbiddenM[i] = new forbiddenNode(line.charAt(1), line.charAt(3));
+				forbiddenM[i] = new ForbiddenNode(line.charAt(1), line.charAt(3));
 			else{
 				current = forbiddenM[i];
 				while (current.getNext() != null){
 					current = current.getNext();
 				}						
-				current.setNext(new forbiddenNode(line.charAt(1), line.charAt(3)));
+				current.setNext(new ForbiddenNode(line.charAt(1), line.charAt(3)));
 			}
 			if (line.charAt(4) != ')')
 				throw new InvalidInputException();	
@@ -227,13 +227,13 @@ public class TaskOrganizer {
 		while(((line = br.readLine()).length() > 0)&&((line.charAt(0)) != ' ')){
 			i = (line.charAt(1) - 1)%8;
 			if (tooNearTask[i] == null)
-				tooNearTask[i] = new nearTaskNode(line.charAt(1), line.charAt(3));
+				tooNearTask[i] = new NearTaskNode(line.charAt(1), line.charAt(3));
 			else{
 				current = tooNearTask[i];
 				while (current.getNext() != null){
 					current = current.getNext();
 				}						
-				current.setNext(new nearTaskNode(line.charAt(1), line.charAt(3)));
+				current.setNext(new NearTaskNode(line.charAt(1), line.charAt(3)));
 			}
 			if (line.charAt(4) != ')')
 				throw new InvalidInputException();	
@@ -258,13 +258,13 @@ public class TaskOrganizer {
 				penValue = parts[2].substring(0, (parts[2].length() - 1));
 				value = Integer.parseInt(penValue);
 				if (tooNearPen[i] == null)
-					tooNearPen[i] = new nearPenNode((parts[0]).charAt(1), (parts[1]).charAt(0), value);
+					tooNearPen[i] = new NearPenNode((parts[0]).charAt(1), (parts[1]).charAt(0), value);
 				else{
 					current = tooNearPen[i];
 					while (current.getNext() != null){
 						current = current.getNext();
 					}						
-					current.setNext(new nearPenNode((parts[0]).charAt(1), (parts[1]).charAt(0), value));
+					current.setNext(new NearPenNode((parts[0]).charAt(1), (parts[1]).charAt(0), value));
 				}
 			}
 		}catch(NullPointerException e){

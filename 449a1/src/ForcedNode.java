@@ -4,13 +4,13 @@
  * @author team 1-1 
  * for the Forced Partial Assignment data structure
  */
-public class forcedNode extends NodeWComp{
+public class ForcedNode extends NodeWComp{
 /****
  * @param mach machine number being added
  * @param task task being added
  * @throws InvalidInputException thrown when either the task or machine number is invalid
  */
-	public forcedNode(char mach, char task)throws InvalidInputException{
+	public ForcedNode(char mach, char task)throws InvalidInputException{
 		if ((mach >= 49) && (mach <= 56))
 			computer = mach - 48;
 		else 

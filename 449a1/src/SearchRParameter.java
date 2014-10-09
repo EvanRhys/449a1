@@ -1,13 +1,13 @@
 
-public class searchRParameter {
+public class SearchRParameter {
 	private String remaining;
 	private String current;
 	private int machineNumb;
 	private int penalty;
 	private char lastTask;
 	
-	public searchRParameter(){}
-	public searchRParameter(String remaining, String current, int machineNumb, int penalty, char lastTask){
+	public SearchRParameter(){}
+	public SearchRParameter(String remaining, String current, int machineNumb, int penalty, char lastTask){
 		this.remaining = remaining;
 		this.current = current;
 		this.machineNumb = machineNumb;

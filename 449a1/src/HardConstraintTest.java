@@ -102,18 +102,18 @@ public class HardConstraintTest {
 	}
 	@Test
 	public void forbiddenMachineTrue(){
-		assertEquals(true, HC.forbiddenMachine(1, 'A'));
+		assertEquals(true, HC.constraint(1, 'A', 'H'));
 	}
 	@Test
 	public void forbiddenMachineFalse(){
-		assertEquals(false, HC.forbiddenMachine(1, 'D'));
+		assertEquals(false, HC.constraint(1, 'D', 'H'));
 	}
 	@Test
 	public void tooNearTasksTrue(){
-		assertEquals(true, HC.tooNearTasks('B', 'A'));
+		assertEquals(true, HC.constraint(2,'B', 'A'));
 	}
 	@Test
 	public void tooNearTasksFalse(){
-		assertEquals(false, HC.tooNearTasks('D', 'A'));
+		assertEquals(false, HC.constraint(1, 'D', 'A'));
 	}
 }

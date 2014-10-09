@@ -54,7 +54,7 @@ public class TreeTests{
 		mP[0][1] = 4;
 		
 		tree = new Tree(new HardConstraints(fcN, fbN, tNT), new SoftConstraints(tNP, mP));
-		tree.searchR(input, "", 1, 0, empty);
+		tree.searchR(new searchRParameter(input, "", 1, 0, empty));
 		assertEquals("BCDAEFGH", tree.getBestString());
 		assertEquals(11, tree.getBestScore());
 	}

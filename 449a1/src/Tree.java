@@ -49,57 +49,57 @@ public class Tree {
 	 * 	this insures that when the recursive call is closed the parent still has the same values to work with
 	 * finally when the remaining string is empty the score is checked one last time against the best and if better it is saved
 	 */
-	public boolean searchR(String remain, String curr, int mNumb, int pen, char last){
+	public boolean searchR(searchRParameter last){
 		String temp [];
-		String nextR;
-		String nextC;
-		int nextP;
 		int count = 0;
 		char task;
-		char nextL;
 		CharSequence seq;
-		if (remain.length() != 0){
-			while(count < remain.length()){
-				if ((task = HC.forcePartAssignment(mNumb)) != 'X'){
-					if (HC.constraint(mNumb, task, last)){
+		searchRParameter next = new searchRParameter();
+		
+		if (last.getRemaining().length() != 0){
+			while(count < last.getRemaining().length()){
+				if ((task = HC.forcePartAssignment(last.getMachineNumb())) != 'X'){
+					if (HC.constraint(last.getMachineNumb(), task, last.getLastTask())){
 						seq = Character.toString(task);
-						if (remain.contains(seq)){
-							nextC = curr + task;
-							temp = remain.split(Character.toString(task));
+						if (last.getRemaining().contains(seq)){
+							next.setCurrent(last.getCurrent() + task);
+							temp = last.getRemaining().split(Character.toString(task));
 							if (temp.length > 1){
-								nextR = temp[0] + temp[1];
+								next.setRemaining(temp[0] + temp[1]);
 							}
 							else if (temp.length == 1) {
-								nextR = temp[0];
+								next.setRemaining(temp[0]);
 							}
 							else
-								nextR = "";		
-							nextP = pen + SC.getPenalty(mNumb, task, last);
-							nextL = task;
-							searchR(nextR, nextC, mNumb + 1, nextP, nextL);
+								next.setRemaining("");		
+							next.setPenalty(last.getPenalty() + SC.getPenalty(last.getMachineNumb(), task, last.getLastTask()));
+							next.setLastTask(task);
+							next.setMachineNumb(last.getMachineNumb()+1);
+							searchR(next);
 						}
-						count = remain.length();
+						count = last.getRemaining().length();
 					}
 					else
 						return false;
 				}
 				else{
-					task =  remain.charAt(count);
-					if (HC.constraint(mNumb, task, last)){
-						nextP = pen + SC.getPenalty(mNumb, task, last);
-						if ((pen < bestScore) || (bestScore == -1)){
-							nextC = curr + task;
-							nextL = task;
-							temp = remain.split(Character.toString(task));
+					task =  last.getRemaining().charAt(count);
+					if (HC.constraint(last.getMachineNumb(), task, last.getLastTask())){
+						next.setPenalty(last.getPenalty() + SC.getPenalty(last.getMachineNumb(), task, last.getLastTask()));
+						if ((last.getPenalty() < bestScore) || (bestScore == -1)){
+							next.setCurrent(last.getCurrent() + task);
+							next.setLastTask(task);
+							temp = last.getRemaining().split(Character.toString(task));
 							if (temp.length > 1){
-								nextR = temp[0] + temp[1];
+								next.setRemaining(temp[0] + temp[1]);
 							}
 							else if (temp.length == 1) {
-								nextR = temp[0];
+								next.setRemaining(temp[0]);
 							}
 							else
-								nextR = "";
-							searchR(nextR, nextC, mNumb + 1, nextP, nextL);
+								next.setRemaining("");
+							next.setMachineNumb(last.getMachineNumb()+1);
+							searchR(next);
 							count++;
 						}
 						else
@@ -111,10 +111,10 @@ public class Tree {
 			}
 		}
 		else{
-			pen = pen + SC.getTooNearPenalty(curr.charAt(7), curr.charAt(0));//added to check if last element is next to first, toonearpen2
-			if ((pen < bestScore) || (bestScore == -1)){
-				bestScore = pen;
-				bestString = curr;
+			last.setPenalty(last.getPenalty() + SC.getTooNearPenalty(last.getCurrent().charAt(7), last.getCurrent().charAt(0)));//added to check if last element is next to first, toonearpen2
+			if ((last.getPenalty() < bestScore) || (bestScore == -1)){
+				bestScore = last.getPenalty();
+				bestString = last.getCurrent();
 			}
 		}	
 		return true;

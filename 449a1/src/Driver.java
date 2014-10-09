@@ -26,8 +26,8 @@ public class Driver {
 	public static void main(String[] args){
 		TaskOrganizer TO = new TaskOrganizer(args[0], args[1]);
 		try{
-			TO.readFile();
-			TO.runSearch();
+			if(TO.readFile())
+				TO.runSearch();
 		}catch(IOException e){
 			e.printStackTrace();
 		}catch(FileNotReadException e){

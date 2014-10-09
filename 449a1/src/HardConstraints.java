@@ -47,7 +47,7 @@ public class HardConstraints {
 	 * @return true if task curr isn't forbidden to be on machine mach
 	 * @return false if task curr is forbidden to be on machine mach
 	 */
-	public boolean forbiddenMachine(int mach, char curr){
+	private boolean forbiddenMachine(int mach, char curr){
 		Node current= forbiddenMachine[mach - 1];
 	
 		while (current != null)
@@ -64,7 +64,7 @@ public class HardConstraints {
 	 * @return true if task curr isn't too near to last
 	 * @return false if task curr is too near to last
 	 */
-	public boolean tooNearTasks(char curr, char last){ 
+	private boolean tooNearTasks(char curr, char last){ 
 		Node current= tooNearTasks[(last-1) %8]; 
 		while (current != null)
 		{

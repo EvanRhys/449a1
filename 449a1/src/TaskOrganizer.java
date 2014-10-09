@@ -29,7 +29,7 @@ public class TaskOrganizer {
 		SC = null;
 	}
 	
-	public void readFile() throws IOException{
+	public boolean readFile() throws IOException{
 		String line;
 		int keyWordCount = 0;
 		FileReader fr;
@@ -73,19 +73,27 @@ public class TaskOrganizer {
 			SC = new SoftConstraints(tooNearPen, linePen);
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
+			return false;
 		} catch (PartialAssignmentException e){
 			writeOutput("partial assignment error", outputFile);
+			return false;
 		} catch (ParsingInputException e){
 			writeOutput("Error while parsing input file", outputFile);
+			return false;
 		} catch (InvalidInputException e){
 			writeOutput("invalid machine/task", outputFile);
+			return false;
 		} catch (MachinePenException e){
 			writeOutput("machine penalty error", outputFile);
+			return false;
 		} catch (InvalidPenException e){
 			writeOutput("invalid penalty", outputFile);
+			return false;
 		} catch (InvalidTaskException e){
 			writeOutput("invalid task", outputFile);
-		}		
+			return false;
+		}	
+		return true;
 	}
 	public void runSearch()throws FileNotReadException, IOException{
 		if (HC != null){
@@ -93,7 +101,7 @@ public class TaskOrganizer {
 			int score;
 			sTree = new Tree(HC, SC);
 
-			sTree.searchR(input, "", 1, 0, empty);
+			sTree.searchR(new searchRParameter(input, "", 1, 0, empty));
 			output = sTree.getBestString();
 			score = sTree.getBestScore();
 			if (!output.equalsIgnoreCase("No valid solution possible!"))

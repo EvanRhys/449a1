@@ -4,7 +4,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ HardConstraintTest.class, SoftConstraintTests.class, TreeTests.class })
+@SuiteClasses({ HardConstraintTest.class, SoftConstraintTests.class, TreeTests.class, TaskOrganizerTest.class })
 public class AllTests {
 
 }

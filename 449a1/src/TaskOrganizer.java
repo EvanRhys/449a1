@@ -15,6 +15,7 @@ public class TaskOrganizer {
 	private Tree sTree;
 	private String inputFile;
 	private String outputFile;
+	private BufferedReader br;
 	
 	public TaskOrganizer(){}
 	public TaskOrganizer(String inputFile, String outputFile){
@@ -33,29 +34,28 @@ public class TaskOrganizer {
 		String line;
 		int keyWordCount = 0;
 		FileReader fr;
-		BufferedReader br;
 		try {
 			fr = new FileReader(inputFile);
 			br = new BufferedReader(fr);
 			while((line = br.readLine()) != null){
 				if (line.equalsIgnoreCase("forced partial assignment:")){
-					forcedPartialAssign(br);
+					forcedPartialAssign();
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("forbidden machine:")){
-					forbiddenMachine(br);
+					forbiddenMachine();
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("too-near tasks:")){
-					tooNearTask(br);
+					tooNearTask();
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("machine penalties:")){
-					machinePenalties(br);
+					machinePenalties();
 					keyWordCount++;					
 				}
 				else if (line.equalsIgnoreCase("too-near penalities")){
-					tooNearPen(br);
+					tooNearPen();
 					keyWordCount++;
 				}
 				else if(line.equalsIgnoreCase("Name:")){//added to handle when name title is read, garbage
@@ -93,6 +93,7 @@ public class TaskOrganizer {
 			writeOutput("invalid task", outputFile);
 			return false;
 		}	
+		br.close();
 		return true;
 	}
 	public void runSearch()throws FileNotReadException, IOException{
@@ -118,7 +119,7 @@ public class TaskOrganizer {
 	 * @throws IOException
 	 * @throws PartialAssignmentException
 	 */
-	private void forcedPartialAssign(BufferedReader br) throws IOException, PartialAssignmentException, InvalidInputException{
+	private void forcedPartialAssign() throws IOException, PartialAssignmentException, InvalidInputException{
 		String compare = input;
 		String line;
 		String [] temp;
@@ -158,7 +159,7 @@ public class TaskOrganizer {
 	 * @throws IOException
 	 * @throws MachinePenException
 	 */
-	private void machinePenalties(BufferedReader br) throws IOException, MachinePenException{
+	private void machinePenalties() throws IOException, MachinePenException{
 		int i = 0;
 		int j = 0;
 		StringTokenizer st;
@@ -194,7 +195,7 @@ public class TaskOrganizer {
 	 * @param br
 	 * @throws IOException
 	 */
-	private void forbiddenMachine(BufferedReader br) throws IOException{
+	private void forbiddenMachine() throws IOException{
 		String line;
 		Node current;
 		int i;
@@ -218,7 +219,7 @@ public class TaskOrganizer {
 	 * @param br
 	 * @throws IOException
 	 */
-	private void tooNearTask(BufferedReader br) throws IOException{
+	private void tooNearTask() throws IOException{
 		String line;
 		int i;
 		Node current;
@@ -243,7 +244,7 @@ public class TaskOrganizer {
 	 * @param br
 	 * @throws IOException
 	 */
-	private void tooNearPen(BufferedReader br) throws IOException{
+	private void tooNearPen() throws IOException{
 		String line;
 		String [] parts;
 		String penValue;

@@ -18,6 +18,7 @@ public class Tree {
 	private String bestString;	
 	private HardConstraints HC;
 	private SoftConstraints SC;
+	
 	public Tree(){
 		bestScore = -1;
 		bestString = "No valid solution possible!";
@@ -83,7 +84,7 @@ public class Tree {
 						return false;
 				}
 				else{
-					task =  last.getRemaining().charAt(count);
+					task = last.getRemaining().charAt(count);
 					if (HC.constraint(last.getMachineNumb(), task, last.getLastTask())){
 						next.setPenalty(last.getPenalty() + SC.getPenalty(last.getMachineNumb(), task, last.getLastTask()));
 						if ((last.getPenalty() < bestScore) || (bestScore == -1)){

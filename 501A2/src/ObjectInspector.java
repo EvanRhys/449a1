@@ -32,13 +32,31 @@ public class ObjectInspector
 
 	System.out.println("inside inspector: " + obj + " (recursive = "+recursive+")");
 	
+	inspectMethods(obj, ObjClass);
 	//inspect the current class
-	inspectFields(obj, ObjClass,objectsToInspect);
+	inspectFields(obj, ObjClass, objectsToInspect);
 	
 	if(recursive)
 	    inspectFieldClasses( obj, ObjClass, objectsToInspect, recursive);
 	   
     }
+    /*
+     * name of declaring class
+     * immediate superclass
+     * interfaces the class implements
+     * methods
+     * 	-exceptions
+     * 	-parameter types
+     * 	-return type
+     * 	-modifiers
+     * constructors
+     * 	-parameter types
+     * 	-modifiers
+     * fields
+     * 	-types
+     * 	-modifier
+     * 	-current value, if object and recursive = false print pointer value
+     */
     //-----------------------------------------------------------
     private void inspectFieldClasses(Object obj,Class ObjClass,
 				     Vector objectsToInspect,boolean recursive)
@@ -87,4 +105,52 @@ public class ObjectInspector
 	if(ObjClass.getSuperclass() != null)
 	    inspectFields(obj, ObjClass.getSuperclass() , objectsToInspect);
     }
+    /* methods
+     * 	-parameter types
+     * 	-exceptions
+     * 	-return type
+     *	-modifiers
+     */
+    private void getMethodParameterTypes(Method m){
+		if(m.getParameterTypes().length >= 1){
+			for(int i = 0; i < m.getParameterTypes().length; i++){
+				Class c = m.getParameterTypes()[i];
+				System.out.println("	Parameter: " + c.getName());
+			}
+		}
+    }
+    private void getMethodExceptions(Method m){
+    	if(m.getExceptionTypes().length >= 1){
+    		for(int i = 0; i < m.getExceptionTypes().length; i++){
+    			Class c = m.getExceptionTypes()[i];
+    			System.out.println("	Exception: " + c.getName());
+    		}
+    	}
+    }
+    private void getMethodReturnType(Method m){
+    	Class c = m.getReturnType();
+    	System.out.println("	Return Type: " + c.getName());
+    }
+    private void getMethodModifiers(Method m){
+    	int numbModifiers = m.getModifiers();
+    	System.out.println("	Modifiers: " + numbModifiers);
+    }
+    private void inspectMethods(Object obj, Class ObjClass)
+    {
+    	if (ObjClass.getDeclaredMethods().length >= 1){
+    		for (int i = 0; ObjClass.getDeclaredMethods().length > i; i++ ){
+    			Method m = ObjClass.getDeclaredMethods()[i];
+    			try{
+    				System.out.println("Method: " + m.getName() + ";");
+    				getMethodParameterTypes(m);
+    				getMethodExceptions(m);
+    				getMethodReturnType(m);
+    				getMethodModifiers(m);
+    			}
+    			catch(Exception e){}
+    		}
+    	}
+    }
 }
+
+

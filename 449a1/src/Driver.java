@@ -32,6 +32,7 @@ public class Driver {
 			e.printStackTrace();
 		}catch(FileNotReadException e){
 			System.out.printf("File has not been read");
+			System.out.printf("TEST");
 		}
 	}
 }

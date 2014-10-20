@@ -33,6 +33,7 @@ public class ObjectInspector
 	System.out.println("inside inspector: " + obj + " (recursive = "+recursive+")");
 	
 	inspectMethods(obj, ObjClass);
+	inspectConstructors(obj, ObjClass);
 	//inspect the current class
 	inspectFields(obj, ObjClass, objectsToInspect);
 	
@@ -44,14 +45,6 @@ public class ObjectInspector
      * name of declaring class
      * immediate superclass
      * interfaces the class implements
-     * methods
-     * 	-exceptions
-     * 	-parameter types
-     * 	-return type
-     * 	-modifiers
-     * constructors
-     * 	-parameter types
-     * 	-modifiers
      * fields
      * 	-types
      * 	-modifier
@@ -141,7 +134,7 @@ public class ObjectInspector
     		for (int i = 0; ObjClass.getDeclaredMethods().length > i; i++ ){
     			Method m = ObjClass.getDeclaredMethods()[i];
     			try{
-    				System.out.println("Method: " + m.getName() + ";");
+    				System.out.println("Method: " + m.getName() + ":");
     				getMethodParameterTypes(m);
     				getMethodExceptions(m);
     				getMethodReturnType(m);
@@ -151,6 +144,35 @@ public class ObjectInspector
     		}
     	}
     }
+    /* constructors
+    * 	-parameter types
+    * 	-modifiers
+    */
+    private void getConstructorParameterTypes(Constructor con){
+		if(con.getParameterTypes().length >= 1){
+			for(int i = 0; i < con.getParameterTypes().length; i++){
+				Class c = con.getParameterTypes()[i];
+				System.out.println("	Parameter: " + c.getName());
+			}
+		}
+    }
+    private void getConstructorModifiers(Constructor c){
+    	int numbModifiers = c.getModifiers();
+    	System.out.println("	Modifiers: " + numbModifiers);
+    }
+    private void inspectConstructors(Object obj, Class ObjClass){
+    	if(ObjClass.getDeclaredConstructors().length >= 1){
+    		for (int i = 0; ObjClass.getDeclaredConstructors().length > i; i++){
+    			Constructor c = ObjClass.getDeclaredConstructors()[i];
+    			try{
+    				System.out.println("Constructor: " + c.getName() + ":");
+    				getConstructorParameterTypes(c);
+    				getConstructorModifiers(c);
+    			}catch (Exception e){}
+   			}
+   		}
+   	}
 }
+
 
 

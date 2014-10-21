@@ -20,9 +20,9 @@ import java.util.*;
 import java.lang.reflect.*;
 
 
-public class ObjectInspector
+public class Inspector
 {
-    public ObjectInspector() { }
+    public Inspector() { }
 
     //-----------------------------------------------------------
     public void inspect(Object obj, boolean recursive)
@@ -32,8 +32,8 @@ public class ObjectInspector
 
 	System.out.println("inside inspector: " + obj + " (recursive = "+recursive+")");
 	
-	inspectMethods(obj, ObjClass);
-	inspectConstructors(obj, ObjClass);
+	inspectMethods(ObjClass);
+	inspectConstructors(ObjClass);
 	//inspect the current class
 	inspectFields(obj, ObjClass, objectsToInspect);
 	
@@ -51,7 +51,7 @@ public class ObjectInspector
      * 	-current value, if object and recursive = false print pointer value
      */
     //-----------------------------------------------------------
-    private void inspectFieldClasses(Object obj,Class ObjClass,
+    public void inspectFieldClasses(Object obj,Class ObjClass,
 				     Vector objectsToInspect,boolean recursive)
     {
 	
@@ -74,8 +74,7 @@ public class ObjectInspector
 	    }
     }
     //-----------------------------------------------------------
-    private void inspectFields(Object obj,Class ObjClass,Vector objectsToInspect)
-  
+    public void inspectFields(Object obj,Class ObjClass,Vector objectsToInspect)  
     {
 	
 	if(ObjClass.getDeclaredFields().length >= 1)
@@ -104,7 +103,7 @@ public class ObjectInspector
      * 	-return type
      *	-modifiers
      */
-    private void getMethodParameterTypes(Method m){
+    public void getMethodParameterTypes(Method m){
 		if(m.getParameterTypes().length >= 1){
 			for(int i = 0; i < m.getParameterTypes().length; i++){
 				Class c = m.getParameterTypes()[i];
@@ -112,7 +111,7 @@ public class ObjectInspector
 			}
 		}
     }
-    private void getMethodExceptions(Method m){
+    public void getMethodExceptions(Method m){
     	if(m.getExceptionTypes().length >= 1){
     		for(int i = 0; i < m.getExceptionTypes().length; i++){
     			Class c = m.getExceptionTypes()[i];
@@ -120,15 +119,15 @@ public class ObjectInspector
     		}
     	}
     }
-    private void getMethodReturnType(Method m){
+    public void getMethodReturnType(Method m){
     	Class c = m.getReturnType();
     	System.out.println("	Return Type: " + c.getName());
     }
-    private void getMethodModifiers(Method m){
+    public void getMethodModifiers(Method m){
     	int numbModifiers = m.getModifiers();
     	System.out.println("	Modifiers: " + numbModifiers);
     }
-    private void inspectMethods(Object obj, Class ObjClass)
+    public void inspectMethods(Class ObjClass)
     {
     	if (ObjClass.getDeclaredMethods().length >= 1){
     		for (int i = 0; ObjClass.getDeclaredMethods().length > i; i++ ){
@@ -148,7 +147,7 @@ public class ObjectInspector
     * 	-parameter types
     * 	-modifiers
     */
-    private void getConstructorParameterTypes(Constructor con){
+    public void getConstructorParameterTypes(Constructor con){
 		if(con.getParameterTypes().length >= 1){
 			for(int i = 0; i < con.getParameterTypes().length; i++){
 				Class c = con.getParameterTypes()[i];
@@ -156,16 +155,16 @@ public class ObjectInspector
 			}
 		}
     }
-    private void getConstructorModifiers(Constructor c){
+    public void getConstructorModifiers(Constructor c){
     	int numbModifiers = c.getModifiers();
     	System.out.println("	Modifiers: " + numbModifiers);
     }
-    private void inspectConstructors(Object obj, Class ObjClass){
+    public void inspectConstructors(Class ObjClass){
     	if(ObjClass.getDeclaredConstructors().length >= 1){
     		for (int i = 0; ObjClass.getDeclaredConstructors().length > i; i++){
     			Constructor c = ObjClass.getDeclaredConstructors()[i];
     			try{
-    				System.out.println("Constructor: " + c.getName() + ":");
+    				System.out.println("Constructor " + c.getName() + ":");
     				getConstructorParameterTypes(c);
     				getConstructorModifiers(c);
     			}catch (Exception e){}

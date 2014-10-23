@@ -1,3 +1,10 @@
+/* Inspector Tests
+ * 
+ * Credit for the method used to test data printed out to screen was found here:
+ * http://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
+ * 
+ */
+
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
@@ -186,7 +193,7 @@ public class InspectorTests {
 			fail("Failed at invoke " + errContent.toString());
 		}
 		try{
-			String results = "	Modifiers: 1\n";
+			String results = "	Modifiers: public\n";
 			assertEquals(results, outContent.toString());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -221,7 +228,7 @@ public class InspectorTests {
 			String results = "Method: getAtt:\n" +
 					"	Exception: java.lang.NullPointerException\n" +
 					"	Return Type: int\n" +
-					"	Modifiers: 1\n";
+					"	Modifiers: public\n";
 			assertEquals(results, outContent.toString());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -291,7 +298,7 @@ public class InspectorTests {
 			fail("Failed at invoke " + errContent.toString());
 		}
 		try{
-			String results = "	Modifiers: 1\n";
+			String results = "	Modifiers: public\n";
 			assertEquals(results, outContent.toString());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -324,15 +331,15 @@ public class InspectorTests {
 		}
 		try{
 			String results1 = "Constructor TestClass:\n" +
-							"	Modifiers: 1\n" +
+							"	Modifiers: public\n" +
 							"Constructor TestClass:\n" + 
 							"	Parameter: int\n" +
-							"	Modifiers: 1\n";
+							"	Modifiers: public\n";
 			String results2 = "Constructor TestClass:\n" +
 					"	Parameter: int\n" +
-					"	Modifiers: 1\n" +
+					"	Modifiers: public\n" +
 					"Constructor TestClass:\n" +					
-					"	Modifiers: 1\n";
+					"	Modifiers: public\n";			
 			assertTrue(outContent.toString().equals(results1) || outContent.toString().equals(results2));
 		}catch(Exception e){
 			e.printStackTrace();

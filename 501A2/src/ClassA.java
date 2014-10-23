@@ -19,6 +19,9 @@ public final class ClassA implements java.io.Serializable, Runnable
 	    val = i;
 	}
 
+   // public void setVal(String [] i){
+   // 	val4 = i;
+   // }
     public String toString() { return "ClassA"; }
 
     private void printSomething() { System.out.println("Something"); }
@@ -26,4 +29,6 @@ public final class ClassA implements java.io.Serializable, Runnable
     private int val=3;
     private double val2 = 0.2;
     private boolean val3 = true;
+    //private String [] val4 = {"one", "two", "three"};
+    private int [] val5 = {1,2,3};
 }

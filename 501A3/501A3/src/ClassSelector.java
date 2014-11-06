@@ -6,40 +6,45 @@
  * Object that uses an instance of one of Java's collection classes
  * 
  */
-import java.io.*;
-import java.text.NumberFormat;
 import java.util.Scanner;
-import java.lang.reflect.*;
 
 public class ClassSelector {
 	public ClassSelector(){}
 
-	public static Object getObject() {
+	public Object getObject()
+	{
 		boolean objectBuilding = true;
 		Scanner in = new Scanner(System.in);
 		String input;
 		
-		while(objectBuilding){
+		while(objectBuilding)
+		{
 			PrintFunctions.displayClasses();
 			input = in.next();
 			
 			if(input.charAt(0) == '1' && input.length() == 1)
 			{
-				Object obj = buildSimpleObject(in);
+				Object obj = buildSimpleObject(in, true);
 				if(obj != null)
 					return obj; 
 			}
 			else if (input.charAt(0) == '2' && input.length() == 1)
 			{
-				//return buildReferenceObject();
+				Object obj = buildReferenceObject(in);
+				if(obj != null)
+					return obj;
 			}
 			else if (input.charAt(0) == '3' && input.length() == 1)
 			{
-				//return buildPrimArrayObject();
+				Object obj = buildPrimArrayObject(in);
+				if(obj != null)
+						return obj;
 			}
 			else if (input.charAt(0) == '4' && input.length() == 1)
 			{
-				//return buildRefArrayObject(); 
+				Object obj = buildRefArrayObject(in);
+				if(obj != null)
+					return obj;
 			}
 			else if (input.charAt(0) == '5' && input.length() == 1)
 			{
@@ -51,81 +56,205 @@ public class ClassSelector {
 				objectBuilding = false;
 			}
 			else
-				System.out.println("Incorrect input");		
+				PrintFunctions.displayIncorrectInput("Number or Quit");	
 			
 		}
 		
 		return null;
 	}
 
-	public static Object buildSimpleObject(Scanner in){
-		ClassSelector cs = new ClassSelector();
+	private Object buildSimpleObject(Scanner in, boolean level)
+	{
 		boolean objectBuilding = true;
 		String input;
 		
-		Object obj = new SimpleObject();
-		Class objClass = obj.getClass();
+		SimpleObject SO = new SimpleObject();
 				
-		while(objectBuilding){
+		while(objectBuilding)
+		{
 			PrintFunctions.displaySOOptions();
+			if(level)
+				PrintFunctions.displayGeneralOptions();
+			else 
+				PrintFunctions.displaySecondLevel();
+			
+			while(! in.hasNext()){}
+			input = in.next();
+			
+			if(input.charAt(0) == '1' && input.length() == 1){
+				PrintFunctions.displayInput("Boolean");
+				SO.setBoolVar(handleBoolean(in));			 
+			}
+			else if (input.charAt(0) == '2' && input.length() == 1){
+				PrintFunctions.displayInput("Character");
+				SO.setCharVar(handleChar(in));
+			}
+			else if (input.charAt(0) == '3' && input.length() == 1){
+				PrintFunctions.displayInput("Integer");
+				SO.setIntVar(handleInt(in));
+			}
+			else if (input.charAt(0) == '4' && input.length() == 1){
+				PrintFunctions.displayInput("Double");
+				SO.setDoubVar(handleDouble(in));
+			}
+			else if (input.charAt(0) == 's' && input.length() == 1)
+				return SO;
+			else if (input.charAt(0) == 'r' && input.length() == 1)
+				objectBuilding = false;			
+			else
+				PrintFunctions.displayIncorrectInput();
+		}
+		
+		return null;
+	}
+	
+	private Object buildReferenceObject(Scanner in)
+	{
+		boolean objectBuilding = true;
+		String input;
+		
+		ReferenceObject RO = new ReferenceObject();		
+		
+		while(objectBuilding)
+		{
+			PrintFunctions.displayROOptions();
+			PrintFunctions.displayGeneralOptions();
+			
 			while(! in.hasNext()){}
 			input = in.next();
 			
 			if(input.charAt(0) == '1' && input.length() == 1)
-			{
-				boolean b = cs.handleBoolean(in);
-				try{
-					Field f = objClass.getDeclaredField("boolVar");
-					f.setAccessible(true);
-					f.set(obj, b);
+			{				
+				try
+				{
+					RO.setRef1((SimpleObject) buildSimpleObject(in, false));
 				}
-				catch (Exception e){
-					e.printStackTrace();					
+				catch(Exception e)
+				{
+					e.printStackTrace();
 				}
-			} 
+			}
 			else if (input.charAt(0) == '2' && input.length() == 1)
 			{
-				char c = cs.handleChar(in);
-				try{
-					Field f = objClass.getDeclaredField("charVar");
-					f.setAccessible(true);
-					f.set(obj, c);
+				try
+				{
+					RO.setRef2((SimpleObject) buildSimpleObject(in, false));
 				}
-				catch (Exception e){
-					e.printStackTrace();					
+				catch(Exception e)
+				{
+					e.printStackTrace();
 				}
+			}
+			else if (input.charAt(0) == 's' && input.length() == 1)
+				return RO;
+			else if  (input.charAt(0) == 'r' && input.length() == 1)
+				objectBuilding = false;
+			else
+				PrintFunctions.displayIncorrectInput();
+		}
+		return null;
+	}
+	
+	private Object buildPrimArrayObject(Scanner in)
+	{
+		boolean objectBuilding = true;
+		String input;
+		
+		PrimArrayObject PAO = null;
+		
+		while(objectBuilding)
+		{
+			PrintFunctions.displayPAOOptions();
+			PrintFunctions.displayGeneralOptions();
+			
+			while(! in.hasNext()){}
+			input = in.next();
+			
+			if(input.charAt(0) == '1' && input.length() == 1)
+			{				
+				PAO = new PrimArrayObject();
+			}
+			else if (input.charAt(0) == '2' && input.length() == 1)
+			{
+				PrintFunctions.displayInput("Array Size");;
+				PAO = new PrimArrayObject(handleInt(in));
 			}
 			else if (input.charAt(0) == '3' && input.length() == 1)
 			{
-				int i = cs.handleInt(in);
+				PrintFunctions.displayInput("Array Position");
+				int point = handleInt(in);
+				PrintFunctions.displayInput("New Value");
+				int value = handleInt(in);
 				try{
-					Field f = objClass.getDeclaredField("intVar");
-					f.setAccessible(true);
-					f.set(obj, i);
+					PAO.set(point, value);
 				}
-				catch (Exception e){
-					e.printStackTrace();					
+				catch(ArrayIndexOutOfBoundsException AIO)
+				{
+					PrintFunctions.displayArrayOutOfBounds(point);
 				}
-			}
-			else if (input.charAt(0) == '4' && input.length() == 1)
-			{
-				double d = cs.handleDouble(in);
-				try{
-					Field f = objClass.getDeclaredField("doubVar");
-					f.setAccessible(true);
-					f.set(obj, d);
-				}
-				catch (Exception e){
-					e.printStackTrace();					
+				catch(NullPointerException NPE)
+				{
+					PrintFunctions.displayNullError();
 				}
 			}
-			else if (input.charAt(0) == 's' && input.length() == 1){
-				return obj;
-			}
-			else if (input.charAt(0) == 'r' && input.length() == 1)
-				objectBuilding = false;			
+			else if (input.charAt(0) == 's' && input.length() == 1)
+				return PAO;
+			else if  (input.charAt(0) == 'r' && input.length() == 1)
+				objectBuilding = false;
 			else
-				System.out.println("Incorrect input");		
+				PrintFunctions.displayIncorrectInput();
+		}
+		
+		return null;
+	}
+	private Object buildRefArrayObject(Scanner in)
+	{	
+		boolean objectBuilding = true;
+		String input;
+		
+		RefArrayObject RAO = null;
+		
+		while(objectBuilding)
+		{
+			PrintFunctions.displayRAOOptions();
+			PrintFunctions.displayGeneralOptions();
+			
+			while(! in.hasNext()){}
+			input = in.next();
+			
+			if(input.charAt(0) == '1' && input.length() == 1)
+			{				
+				RAO = new RefArrayObject();
+			}
+			else if (input.charAt(0) == '2' && input.length() == 1)
+			{
+				PrintFunctions.displayInput("Array Size");
+				RAO = new RefArrayObject(handleInt(in));
+			}
+			else if (input.charAt(0) == '3' && input.length() == 1)
+			{
+				PrintFunctions.displayInput("Array Position");
+				int point = handleInt(in);
+				PrintFunctions.displayInput("New Simple Object");
+				try{
+					SimpleObject value = (SimpleObject) buildSimpleObject(in, false);
+					RAO.set(point, value);
+				}
+				catch(ArrayIndexOutOfBoundsException AIO)
+				{
+					PrintFunctions.displayArrayOutOfBounds(point);
+				}
+				catch(NullPointerException NPE)
+				{
+					PrintFunctions.displayNullError();
+				}
+			}
+			else if (input.charAt(0) == 's' && input.length() == 1)
+				return RAO;
+			else if  (input.charAt(0) == 'r' && input.length() == 1)
+				objectBuilding = false;
+			else
+				PrintFunctions.displayIncorrectInput();
 		}
 		
 		return null;
@@ -135,7 +264,7 @@ public class ClassSelector {
 		String input;
 				
 		while(true){
-			System.out.print("Enter Boolean Value: ");
+			while(! in.hasNext()){}
 			input = in.next();
 			
 			if(input.equalsIgnoreCase("true"))
@@ -143,7 +272,7 @@ public class ClassSelector {
 			else if(input.equalsIgnoreCase("false"))
 				return false;
 			else
-				System.out.println("Invalid Input");
+				PrintFunctions.displayIncorrectInput();
 		}
 	}
 	private char handleChar(Scanner in)
@@ -151,13 +280,13 @@ public class ClassSelector {
 		String input;
 		
 		while(true){
-			System.out.print("Enter Character: ");
+			while(! in.hasNext()){}
 			input = in.next();
 			
 			if(input.length() == 1)
 				return input.charAt(0);			
 			else
-				System.out.println("Invalid Input");
+				PrintFunctions.displayIncorrectInput();
 		}
 	}
 	private int handleInt(Scanner in)
@@ -165,14 +294,14 @@ public class ClassSelector {
 		String input;
 
 		while(true){
-			System.out.print("Enter Integer: ");
+			while(! in.hasNext()){}
 			input = in.next();
 			
 			try{
 				return Integer.parseInt(input);			
 			}
 			catch (NumberFormatException e){
-				System.out.println("Invalid Input");
+				PrintFunctions.displayIncorrectInput();
 			}
 		}		
 	}
@@ -181,14 +310,14 @@ public class ClassSelector {
 		String input;
 
 		while(true){
-			System.out.print("Enter Integer: ");
+			while(! in.hasNext()){}
 			input = in.next();
 			
 			try{
 				return Double.parseDouble(input);				
 			}
 			catch (NumberFormatException e){
-				System.out.println("Invalid Input");
+				PrintFunctions.displayIncorrectInput();
 			}
 		}		
 	}

@@ -24,8 +24,11 @@ public class Driver {
 	 *  
 	 */
 	public static void main(String[] args) {
-		Object selected = ClassSelector.getObject();
-				
+		ClassSelector CS = new ClassSelector();
+		Object selected = CS.getObject();
+		System.out.println("======================================================================================");
+		Visualizer v = new Visualizer();
+		v.inspect(selected, true);
 	}
 
 }

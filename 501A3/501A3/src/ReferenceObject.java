@@ -1,7 +1,7 @@
 
 public class ReferenceObject {
-	SimpleObject ref1;
-	SimpleObject ref2;
+	private SimpleObject ref1;
+	private SimpleObject ref2;
 	public ReferenceObject(){
 		ref1 = new SimpleObject(true, 'b', 4, 5.4);
 		ref2 = new SimpleObject(false, 'c', 5, 4.5);
@@ -12,6 +12,12 @@ public class ReferenceObject {
 	public void setRef1(char varChar, int varInt){
 		ref1.setCharVar(varChar);
 		ref1.setIntVar(varInt);
+	}
+	public void setRef1(SimpleObject SO){
+		ref1 = SO;
+	}
+	public void setRef2(SimpleObject SO){
+		ref2 = SO;
 	}
 	public SimpleObject get(int ref)
 	{

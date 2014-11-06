@@ -14,13 +14,13 @@ public class RefArrayObject {
 		sObjects = new SimpleObject[i];
 		
 		for(int j = 0; j < i; j++){
-			sObjects[i] = new SimpleObject();
+			sObjects[j] = new SimpleObject();
 		}
 	}
 	public SimpleObject get(int point) throws ArrayIndexOutOfBoundsException{
 		return sObjects[point];
 	}
-	public void set(SimpleObject obj, int point) throws ArrayIndexOutOfBoundsException{
+	public void set( int point, SimpleObject obj ) throws ArrayIndexOutOfBoundsException{
 		sObjects[point] = obj;
 	}
 }

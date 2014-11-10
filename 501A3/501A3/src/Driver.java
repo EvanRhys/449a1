@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class Driver {
 	
@@ -26,9 +28,17 @@ public class Driver {
 	public static void main(String[] args) {
 		ClassSelector CS = new ClassSelector();
 		Object selected = CS.getObject();
+		try{
+			Serializer S = new Serializer();
+			if(!S.serialize(selected))
+				System.out.println("Serialization Failed");
+		}
+		catch (IOException IOE){
+			IOE.printStackTrace();
+		}
 		System.out.println("======================================================================================");
 		Visualizer v = new Visualizer();
-		v.inspect(selected, true);
+		v.inspect(selected, false);
 	}
 
 }

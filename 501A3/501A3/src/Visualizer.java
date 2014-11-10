@@ -30,20 +30,10 @@ public class Visualizer
 	//Includes all classes already inspected
 	Vector inspectedObjects;
 	//Used to prevent primitive classes from arrays to be inspected
-	Vector<String> primitives;
 	
     public Visualizer() 
     { 
-    	inspectedObjects = new Vector();
-    	primitives = new Vector<String>();
-    	primitives.addElement("java.lang.Integer");
-    	primitives.addElement("java.lang.Character");
-    	primitives.addElement("java.lang.Boolean");
-    	primitives.addElement("java.lang.Double");
-    	primitives.addElement("java.lang.Float");
-    	primitives.addElement("java.lang.Short");
-    	primitives.addElement("java.lang.Long");
-    	
+    	inspectedObjects = new Vector();  	
     }
     /*
      * name of declaring class
@@ -140,7 +130,7 @@ public class Visualizer
 						Object element = Array.get(fieldObject, i);
 						
 						System.out.println("******************");
-						if(! primitives.contains(element.getClass().getName()))
+						if(! ArrayPrimitives.contains(element.getClass().getName()))
 							inspect(element, recursive);
 						System.out.println("******************");
 					}

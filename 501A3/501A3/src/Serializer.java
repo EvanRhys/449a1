@@ -36,14 +36,14 @@ public class Serializer
 		try{
 			String document = "";
 			document += "<?xml version=\"1.0\"?>\n";
-			document += "<Document>\n";
+			document += "<serialized>\n";
 			document += serializeObject(object);
 			Enumeration<Object> e = objectsToSerialize.elements();
 			while(e.hasMoreElements())
 			{
 				document += serializeObject(e.nextElement());
 			}
-			document += "</Document>\n";
+			document += "</serialized>\n";
 		
 			bw.write(document);
 			bw.flush();
@@ -96,6 +96,7 @@ public class Serializer
 		else
 		{
 			objectsToSerialize.add(f.get(obj));
+			System.out.println(doc);
 			doc += "<Value>" + f.get(obj).hashCode() + "</Value>\n";
 		}
 		

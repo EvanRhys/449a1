@@ -41,7 +41,7 @@ public class Visualizer
      */
     //-----------------------------------------------------------
     //Object Inspector, used to inspect base objects
-    public void inspect(Object obj, boolean recursive)
+    public void inspect(Object obj, boolean recursive, boolean full)
     {
 		Vector fieldsToInspect = new Vector();
 		Vector interfacesToInspect = new Vector();
@@ -49,41 +49,45 @@ public class Visualizer
 			
 		//inspectedObjects.addElement(ObjClass.getName());
 		
-		System.out.println("Class: " + ObjClass.getName() + " (recursive = "+recursive+")");
+		System.out.println("Class: " + obj + " (recursive = "+recursive+")");
 		
 		//inspect the current class
-		inspectSuperClass(ObjClass);
-		inspectInterfaces(ObjClass, interfacesToInspect);
-		inspectConstructors(ObjClass);
-		inspectMethods(ObjClass);		
+		if(full){
+			inspectSuperClass(ObjClass);
+			inspectInterfaces(ObjClass, interfacesToInspect);
+			inspectConstructors(ObjClass);
+			inspectMethods(ObjClass);
+		}
 		inspectFields(obj, ObjClass, fieldsToInspect);
 
 		//inspect attached classes
-		recursiveSuperClass(ObjClass, recursive);
-		recursiveInterface(ObjClass, interfacesToInspect, recursive);
+		recursiveSuperClass(ObjClass, recursive, full);
+		recursiveInterface(ObjClass, interfacesToInspect, recursive, full);
 		if(recursive)
-			recursiveField( obj, ObjClass, fieldsToInspect, recursive);
+			recursiveField( obj, ObjClass, fieldsToInspect, recursive, full);
     }
     
     //Class inspector, used to inspect meta classes
-    public void inspect(Class ObjClass, boolean recursive)
+    public void inspect(Class ObjClass, boolean recursive, boolean full)
     {
-		Vector fieldsToInspect = new Vector();
 		Vector interfacesToInspect = new Vector();
 			
 		inspectedObjects.addElement(ObjClass.getName());
 		
 		System.out.println("Class: " + ObjClass.getName() + " (recursive = "+recursive+")");
-		
-		inspectSuperClass(ObjClass);
-		inspectInterfaces(ObjClass, interfacesToInspect);
-		inspectConstructors(ObjClass);
-		inspectMethods(ObjClass);		
+	
+		if(full)
+		{
+			inspectSuperClass(ObjClass);
+			inspectInterfaces(ObjClass, interfacesToInspect);
+			inspectConstructors(ObjClass);
+			inspectMethods(ObjClass);
+		}
 		//inspect the current class
 		inspectFields(ObjClass);
 
-		recursiveSuperClass(ObjClass, recursive);
-		recursiveInterface(ObjClass, interfacesToInspect, recursive);
+		recursiveSuperClass(ObjClass, recursive, full);
+		recursiveInterface(ObjClass, interfacesToInspect, recursive, full);
     }
     //************************************************************************************************
     //SuperClass Inspecting Methods
@@ -93,14 +97,14 @@ public class Visualizer
     	if(Super != null)
 			System.out.println("SuperClass: " + Super.getName());
     }
-	public void recursiveSuperClass(Class ObjClass, boolean recursive){
+	public void recursiveSuperClass(Class ObjClass, boolean recursive, boolean full){
 		Class Super = ObjClass.getSuperclass();
 		
 		if(Super != null){
 			if(! inspectedObjects.contains(Super.getName())){
 				System.out.println("========================================");
 				System.out.println("Inspecting superclass of " + ObjClass.getName() + ": ");
-				inspect(Super, recursive);
+				inspect(Super, recursive, full);
 				System.out.println("End of superclass " + Super.getName());
 				System.out.println("========================================");
 			}
@@ -115,7 +119,7 @@ public class Visualizer
      * 	-current value, if object and recursive = false print pointer value
      */
     //-----------------------------------------------------------
-    public void recursiveField(Object obj, Class ObjClass, Vector fieldsToInspect, boolean recursive)
+    public void recursiveField(Object obj, Class ObjClass, Vector fieldsToInspect, boolean recursive, boolean full)
     {			
 		Enumeration e = fieldsToInspect.elements();
 		while(e.hasMoreElements())
@@ -131,12 +135,12 @@ public class Visualizer
 						
 						System.out.println("******************");
 						if(! ArrayPrimitives.contains(element.getClass().getName()))
-							inspect(element, recursive);
+							inspect(element, recursive, full);
 						System.out.println("******************");
 					}
 				}else{
 					System.out.println("******************");
-					inspect(fieldObject, recursive);
+					inspect(fieldObject, recursive, full);
 					System.out.println("******************");
 				}
 			}catch(NullPointerException npe){
@@ -207,7 +211,7 @@ public class Visualizer
     		System.out.println("Interface: " + interfaces[i].getName());
     	}
     }
-    public void recursiveInterface(Class ObjClass, Vector interfaces, boolean recursive){
+    public void recursiveInterface(Class ObjClass, Vector interfaces, boolean recursive, boolean full){
     	Enumeration en = interfaces.elements();
     	
     	while(en.hasMoreElements()){
@@ -215,7 +219,7 @@ public class Visualizer
     		if(! inspectedObjects.contains(inter.getName())){
 	    		System.out.println("========================================");
 	    		System.out.println("Inspecting Interface of " + ObjClass.getName() + ": ");
-	    		inspect(inter, recursive); 
+	    		inspect(inter, recursive, full); 
 	    		System.out.println("End of interface " + inter.getName());
 	    		System.out.println("========================================");
     		}

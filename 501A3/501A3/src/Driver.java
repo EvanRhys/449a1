@@ -48,9 +48,9 @@ public class Driver {
 		{
 			Object output = D.deserialize();
 			System.out.println("======================================================================================");
-			/*
+			//*
 			if(output != null)
-				v.inspect(output, true);
+				v.inspect(output, true, false);
 			else
 				System.out.println("Error");//*/
 		}

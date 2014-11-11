@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Document>
+<serialized>
 <Object id = "2106717771">
 <Class>SimpleObject</Class>
 <Fields>
@@ -29,4 +29,4 @@
 </Field>
 </Fields>
 </Object>
-</Document>
+</serialized>

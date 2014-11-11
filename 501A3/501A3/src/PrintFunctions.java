@@ -14,7 +14,7 @@ public class PrintFunctions {
 		System.out.println("	Enter (r) to restart");		
 	}
 	public static void displaySecondLevel(){
-		System.out.println("	Enter (r) to return");
+		System.out.println("	Enter (s) to return");
 	}
 	public static void displaySOOptions(){
 		System.out.println("These are the options for the Simple Object");

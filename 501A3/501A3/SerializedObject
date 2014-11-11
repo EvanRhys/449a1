@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Document>
+<Object id = "2106717771">
+<Class>SimpleObject</Class>
+<Fields>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>boolVar</Name>
+<Type>boolean</Type>
+<Value>false</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>charVar</Name>
+<Type>char</Type>
+<Value>a</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>intVar</Name>
+<Type>int</Type>
+<Value>0</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>doubVar</Name>
+<Type>double</Type>
+<Value>0.0</Value>
+</Field>
+</Fields>
+</Object>
+</Document>

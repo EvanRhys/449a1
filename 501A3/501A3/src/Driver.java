@@ -26,6 +26,7 @@ public class Driver {
 	 *  
 	 */
 	public static void main(String[] args) {
+		//*
 		ClassSelector CS = new ClassSelector();
 		Object selected = CS.getObject();
 		try{
@@ -35,10 +36,29 @@ public class Driver {
 		}
 		catch (IOException IOE){
 			IOE.printStackTrace();
-		}
-		System.out.println("======================================================================================");
+		}//*/
+		
 		Visualizer v = new Visualizer();
-		v.inspect(selected, false);
+		//v.inspect(selected, false);//*/
+		System.out.println("======================================================================================");
+		//*
+		Deserializer D = new Deserializer();
+	
+		try
+		{
+			Object output = D.deserialize();
+			System.out.println("======================================================================================");
+			/*
+			if(output != null)
+				v.inspect(output, true);
+			else
+				System.out.println("Error");//*/
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}//*/
+		
 	}
 
 }

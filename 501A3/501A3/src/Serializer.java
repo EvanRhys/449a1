@@ -67,65 +67,64 @@ public class Serializer
 		Field f;		
 		
 		map.put(obj.hashCode(), objClass.getName());		
-		doc += "\t<Object id = " + obj.hashCode() + ">\n"; 
-		doc += "\t\t<Name>" + objClass.getName() + "</Name>\n";
+		doc += "<Object id = \"" + obj.hashCode() + "\">\n"; 
+		doc += "<Class>" + objClass.getName() + "</Class>\n";
 		if(classFields.length >= 1){			
-			doc += "\t\t<Fields>\n";
+			doc += "<Fields>\n";
 			for (int i = 0; i < classFields.length; i++){
 				f = classFields[i];
 				doc += serializeField(obj, f);
 			}
-			doc += "\t\t</Fields>\n";
+			doc += "</Fields>\n";
 		}
-		doc += "\t</Object>\n"; 
+		doc += "</Object>\n"; 
 		
 		return doc;
 	}
 	private String serializeField(Object obj, Field f) throws Exception
 	{
 		String doc = "";
-		String tabs = "\t\t\t";
 		f.setAccessible(true);
-		doc += tabs + "<Field>\n";
-		doc += tabs + "\t<Class>" + f.getDeclaringClass() + "</Class>\n";
-		doc += tabs + "\t<Name>" + f.getName() + "</Name>\n";
-		
+		doc += "<Field>\n";
+		doc += "<Class>" + f.getDeclaringClass() + "</Class>\n";
+		doc += "<Name>" + f.getName() + "</Name>\n";
+		doc += "<Type>" + f.getType() + "</Type>\n";
 		if(f.getType().isPrimitive())
-			doc += tabs + "\t<Value>" + f.get(obj) + "</Value>\n";
+			doc += "<Value>" + f.get(obj) + "</Value>\n";
 		else if(f.getType().isArray())
-		{
-			doc += serializeArray((tabs +"\t"), f.get(obj));
-		}
+			doc += serializeArray(f.get(obj));
 		else
 		{
 			objectsToSerialize.add(f.get(obj));
-			doc += tabs + "\t<Value>" + f.get(obj).hashCode() + "</Value>\n";
+			doc += "<Value>" + f.get(obj).hashCode() + "</Value>\n";
 		}
-		doc += tabs + "</Field>\n";
+		
+		doc += "</Field>\n";
 		return doc;
 	}
-	private String serializeArray(String tabs, Object obj) throws Exception 
+	private String serializeArray(Object obj) throws Exception 
 	{
 		String doc = "";
 		Object element;
+		doc += "<Length>" + Array.getLength(obj) + "</Length>\n";
+		doc += "<Values>\n";
 		for(int i = 0; i < Array.getLength(obj); i++){
-			element = Array.get(obj, i);
-			doc += tabs + "<Index>" + i + "</Index>\n";
+			element = Array.get(obj, i);			
 			if(element.getClass().isArray())
 			{
-				doc += serializeArray((tabs +"\t"), element);
+				doc += serializeArray(element);
 			}
 			else if(ArrayPrimitives.contains(element.getClass().getName()))
 			{
-				doc += tabs + "\t<Value>" + element + "</Value>\n";
+				doc += "<Value>" + element + "</Value>\n";
 			}
 			else
 			{
 				objectsToSerialize.add(element);
-				doc += tabs + "\t<Value>" + element.hashCode() + "</Value>\n";
+				doc += "<Value>" + element.hashCode() + "</Value>\n";
 			}
 		}
-		
+		doc += "</Values>\n";
 		return doc;
 	}
 }

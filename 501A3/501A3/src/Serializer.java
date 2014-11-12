@@ -96,7 +96,6 @@ public class Serializer
 		else
 		{
 			objectsToSerialize.add(f.get(obj));
-			System.out.println(doc);
 			doc += "<Value>" + f.get(obj).hashCode() + "</Value>\n";
 		}
 		

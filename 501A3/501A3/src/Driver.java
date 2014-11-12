@@ -25,40 +25,75 @@ public class Driver {
 	 *   -Visualizes
 	 *  
 	 */
+
 	public static void main(String[] args) {
-		//*
+		valiadateArgs(args);
+	}
+	private static void valiadateArgs(String[] args)
+	{
+		if(args.length == 3)
+		{
+			if(args[0].equals("Host"))
+				runHost(args);			
+		}
+		else if(args.length == 4)
+		{
+			if(args[0].equals("Client"))
+				runClient(args);
+		}
+		else
+			PrintFunctions.displayIncorrectInput();
+	}
+	//Host port filename
+	private static void runHost(String[] args)
+	{
 		ClassSelector CS = new ClassSelector();
 		Object selected = CS.getObject();
 		try{
-			Serializer S = new Serializer();
+			Serializer S = new Serializer(args[2]);
 			if(!S.serialize(selected))
 				System.out.println("Serialization Failed");
 		}
 		catch (IOException IOE){
 			IOE.printStackTrace();
-		}//*/
+		}
+		try
+		{
+			Host H = new Host(args[1], args[2]);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	//Client ip port full
+	private static void runClient(String[] args)
+	{
+		Client C = new Client();
+		Visualizer V = new Visualizer();
+		String filename = "";
+		try
+		{
+			 filename = C.getFile(args[1], args[2]);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		
-		Visualizer v = new Visualizer();
-		//v.inspect(selected, false);//*/
-		System.out.println("======================================================================================");
-		//*
-		Deserializer D = new Deserializer();
-	
+		Deserializer D = new Deserializer(filename);	
 		try
 		{
 			Object output = D.deserialize();
-			System.out.println("======================================================================================");
-			//*
 			if(output != null)
-				v.inspect(output, true, false);
+				V.inspect(output, true, Boolean.parseBoolean(args[3]));
 			else
-				System.out.println("Error");//*/
+				System.out.println("Error");
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}//*/
-		
+		}
 	}
 
 }

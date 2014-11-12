@@ -55,4 +55,7 @@ public class PrintFunctions {
 	public static void displayNullError(){
 		System.out.println("Please Initialize Array First");
 	}
+	public static void notImplemented(String function){
+		System.out.println("The Function " + function + " has not been implemented");
+	}
 }

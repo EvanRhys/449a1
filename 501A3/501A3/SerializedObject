@@ -1,6 +1,140 @@
 <?xml version="1.0"?>
 <serialized>
-<Object id = "2106717771">
+<Object id = "1352171038">
+<Class>RefArrayObject</Class>
+<Fields>
+<Field>
+<Class>class RefArrayObject</Class>
+<Name>sObjects</Name>
+<Type>class [LSimpleObject;</Type>
+<Length>5</Length>
+<Values>
+<Value>1197700426</Value>
+<Value>1386836451</Value>
+<Value>1920211066</Value>
+<Value>603139146</Value>
+<Value>836812982</Value>
+</Values>
+</Field>
+</Fields>
+</Object>
+<Object id = "1197700426">
+<Class>SimpleObject</Class>
+<Fields>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>boolVar</Name>
+<Type>boolean</Type>
+<Value>true</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>charVar</Name>
+<Type>char</Type>
+<Value>a</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>intVar</Name>
+<Type>int</Type>
+<Value>1</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>doubVar</Name>
+<Type>double</Type>
+<Value>1.1</Value>
+</Field>
+</Fields>
+</Object>
+<Object id = "1386836451">
+<Class>SimpleObject</Class>
+<Fields>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>boolVar</Name>
+<Type>boolean</Type>
+<Value>false</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>charVar</Name>
+<Type>char</Type>
+<Value>b</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>intVar</Name>
+<Type>int</Type>
+<Value>2</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>doubVar</Name>
+<Type>double</Type>
+<Value>2.2</Value>
+</Field>
+</Fields>
+</Object>
+<Object id = "1920211066">
+<Class>SimpleObject</Class>
+<Fields>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>boolVar</Name>
+<Type>boolean</Type>
+<Value>true</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>charVar</Name>
+<Type>char</Type>
+<Value>c</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>intVar</Name>
+<Type>int</Type>
+<Value>3</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>doubVar</Name>
+<Type>double</Type>
+<Value>3.3</Value>
+</Field>
+</Fields>
+</Object>
+<Object id = "603139146">
+<Class>SimpleObject</Class>
+<Fields>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>boolVar</Name>
+<Type>boolean</Type>
+<Value>false</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>charVar</Name>
+<Type>char</Type>
+<Value>d</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>intVar</Name>
+<Type>int</Type>
+<Value>4</Value>
+</Field>
+<Field>
+<Class>class SimpleObject</Class>
+<Name>doubVar</Name>
+<Type>double</Type>
+<Value>4.4</Value>
+</Field>
+</Fields>
+</Object>
+<Object id = "836812982">
 <Class>SimpleObject</Class>
 <Fields>
 <Field>
@@ -25,7 +159,7 @@
 <Class>class SimpleObject</Class>
 <Name>doubVar</Name>
 <Type>double</Type>
-<Value>0.0</Value>
+<Value>333.3333</Value>
 </Field>
 </Fields>
 </Object>

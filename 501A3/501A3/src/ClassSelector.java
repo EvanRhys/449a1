@@ -48,7 +48,7 @@ public class ClassSelector {
 			}
 			else if (input.charAt(0) == '5' && input.length() == 1)
 			{
-				//return buildCollectionObject(); 
+				PrintFunctions.notImplemented("Collection Object Creator");
 			}
 			else if ((input.charAt(0) == 'q' && input.length() == 1) ||
 					input.equalsIgnoreCase("quit"))

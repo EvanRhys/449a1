@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
-
 import java.lang.reflect.*;
 import java.util.Scanner;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.After;

@@ -4,13 +4,19 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.ServerSocket;
-
+import java.net.InetSocketAddress;
+/*
+* Code from this source https://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html
+*  was used to help set up the sockets 
+*/
 public class Host {
 	
-	public Host (String port, String fileName) throws Exception
+	public Host (String ip, String port, String fileName) throws Exception
 	{
 		int portNumber = Integer.parseInt(port);
-		ServerSocket server = new ServerSocket(portNumber);
+		ServerSocket server = new ServerSocket();
+		server.bind(new InetSocketAddress(ip, portNumber));
+		System.out.println(server.getLocalSocketAddress());
 		System.out.println("Waiting for Connection...");
 		Socket client = server.accept();
 		System.out.println("Connected");

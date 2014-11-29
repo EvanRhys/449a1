@@ -31,26 +31,23 @@ public class Driver {
 	}
 	private static void valiadateArgs(String[] args)
 	{
-		if(args.length == 3)
-		{
-			if(args[0].equals("Host"))
-				runHost(args);			
-		}
-		else if(args.length == 4)
+		if(args.length == 4)
 		{
 			if(args[0].equals("Client"))
 				runClient(args);
+			else if(args[0].equals("Host")) 
+				runHost(args);	
 		}
 		else
 			PrintFunctions.displayIncorrectInput();
 	}
-	//Host port filename
+	//Host ip port filename
 	private static void runHost(String[] args)
 	{
 		ClassSelector CS = new ClassSelector();
 		Object selected = CS.getObject();
 		try{
-			Serializer S = new Serializer(args[2]);
+			Serializer S = new Serializer(args[3]);
 			if(!S.serialize(selected))
 				System.out.println("Serialization Failed");
 		}
@@ -59,7 +56,7 @@ public class Driver {
 		}
 		try
 		{
-			Host H = new Host(args[1], args[2]);
+			Host H = new Host(args[1], args[2], args[3]);
 		}
 		catch (Exception e)
 		{

@@ -1,10 +1,13 @@
 import java.lang.reflect.*;
 import java.util.HashMap;
 import java.io.File;
-
 import javax.xml.parsers.*;
-
 import org.w3c.dom.*;
+/*
+*Code from this source http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+* was used to help read the xml file
+*
+*/
 
 public class Deserializer {
 	private String filename = "SerializedObject";

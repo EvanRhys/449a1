@@ -24,13 +24,13 @@ public class File {
 	//data sub-chunk
 	protected String Subchunk2ID;
 	protected int Subchunk2Size;	
-	protected int [] fileData;
+	protected byte [] fileData;
 	
 	public File (String fileName)
 	{
 		this.fileName = fileName;
 	}
-	public int[] getFileData() {
+	public byte[] getFileData() {
 		return fileData;
 	}
 	public float[] getData() {

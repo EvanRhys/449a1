@@ -1,21 +1,22 @@
 import java.io.*;
+import java.nio.ByteBuffer;
 
 public class Output extends File {
 
 	public Output(String fileName) {
 		super(fileName);
 	}
+	
 	public int writeToFile()
 	{
 		try {
-			FileWriter fw = new FileWriter(fileName);
-			BufferedWriter bw = new BufferedWriter(fw);
+			FileOutputStream fos = new FileOutputStream(fileName);
 			
-			writeHeader(bw);
-			writeData(bw);
+			buildHeader();
+			writeHeader(fos);
+			writeData(fos);
 			
-			bw.close();
-			fw.close();
+			fos.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -24,46 +25,87 @@ public class Output extends File {
 		return 0;
 	}
 	
-	public void convertData()
+	public byte [] convertFloatToData(float[] floatData)
 	{
+		byte [] byteData = new byte[floatData.length*4];
 		
+		int j = 0;
+		for(int i = 0; i < floatData.length; i++)
+		{
+			byte[] temp = convertFloatToLSB(floatData[i]);
+			byteData[j] = temp[0];
+			byteData[j+1] = temp[1];
+			byteData[j+2] = temp[2];
+			byteData[j+3] = temp[3];
+			j += 4;
+		}		
+		
+		return byteData;
 	}
-	
-	private void writeHeader(BufferedWriter bw) throws IOException
+	private void buildHeader()
 	{
-		bw.write(ChunkID.toCharArray());
-		bw.write(convertIntToLSB(ChunkSize));
-		bw.write(Format.toCharArray());
-		bw.write(Subchunk1ID.toCharArray());
-		bw.write(convertIntToLSB(Subchunk1Size));
-		bw.write(convertShortToLSB(AudioFormat));
-		bw.write(convertShortToLSB(NumChannels));
-		bw.write(convertIntToLSB(SampleRate));
-		bw.write(convertIntToLSB(ByteRate));
-		bw.write(convertShortToLSB(BlockAlign));
-		bw.write(convertShortToLSB(BitsPerSample));
-		bw.write(Subchunk2ID.toCharArray());
-		bw.write(convertIntToLSB(Subchunk2Size));
+		ChunkID = "RIFF";
+		if(fileName.contains(".wav"))
+			Format = "WAVE";
+		Subchunk1ID = "fmt ";
+		Subchunk1Size = 16;
+		AudioFormat = 1;
+		NumChannels = 1;
+		SampleRate = 44100;
+		BitsPerSample = 16;
+		
+		ByteRate = SampleRate * (NumChannels * (BitsPerSample/8));
+		
+		BlockAlign = (short) (NumChannels * (BitsPerSample/8));
+		Subchunk2ID = "data";
+		Subchunk2Size = fileData.length + 8;
+		
+		ChunkSize = Subchunk2Size + 36;
+	}	
+	private void writeHeader(FileOutputStream fos) throws IOException
+	{
+		fos.write(ChunkID.getBytes());
+		fos.write(convertIntToLSB(ChunkSize));
+		fos.write(Format.getBytes());
+		fos.write(Subchunk1ID.getBytes());
+		fos.write(convertIntToLSB(Subchunk1Size));
+		fos.write(convertShortToLSB(AudioFormat));
+		fos.write(convertShortToLSB(NumChannels));
+		fos.write(convertIntToLSB(SampleRate));
+		fos.write(convertIntToLSB(ByteRate));
+		fos.write(convertShortToLSB(BlockAlign));
+		fos.write(convertShortToLSB(BitsPerSample));
+		if(Subchunk1Size == 18)
+		{
+			fos.write(0x00);
+			fos.write(0x00);
+		}
+		fos.write(Subchunk2ID.getBytes());
+		fos.write(convertIntToLSB(Subchunk2Size));
 	}
-	private void writeData(BufferedWriter bw) throws IOException
+	private void writeData(FileOutputStream fos) throws IOException
 	{
 		for(int i = 0; i < fileData.length; i++)
-			bw.write(fileData[i]);
+			fos.write(fileData[i]);
 	}
-	private char[] convertIntToLSB(int value)
+	private byte[] convertFloatToLSB(float value)
+	{	
+		return ByteBuffer.allocate(4).putFloat(value).array();
+	}
+	private byte[] convertIntToLSB(int value)
 	{
-		char [] values = new char [4];
-		values[3] = (char) ((value >> 24) & 0xFF);
-		values[2] = (char) ((value >> 16) & 0xFF);
-		values[1] = (char) ((value >> 8) & 0xFF);
-		values[0] = (char) ((value) & 0xFF);
+		byte [] values = new byte [4];
+		values[3] = (byte) ((value >> 24) & 0xFF);
+		values[2] = (byte) ((value >> 16) & 0xFF);
+		values[1] = (byte) ((value >> 8) & 0xFF);
+		values[0] = (byte) ((value) & 0xFF);
 		return values;
 	}
-	private char[] convertShortToLSB(short value)
+	private byte[] convertShortToLSB(short value)
 	{
-		char [] values = new char [2];
-		values[1] = (char) ((value >> 8) & 0xFF);
-		values[0] = (char) ((value) & 0xFF);
+		byte [] values = new byte [2];
+		values[1] = (byte) ((value >> 8) & 0xFF);
+		values[0] = (byte) ((value) & 0xFF);
 		return values;	
 	}
 	

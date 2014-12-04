@@ -27,20 +27,11 @@ public class Output extends File {
 	
 	public byte [] convertFloatToData(float[] floatData)
 	{
-		byte [] byteData = new byte[floatData.length*4];
-		
-		int j = 0;
+		ByteBuffer buffer = ByteBuffer.allocate(floatData.length*4);
 		for(int i = 0; i < floatData.length; i++)
-		{
-			byte[] temp = convertFloatToLSB(floatData[i]);
-			byteData[j] = temp[0];
-			byteData[j+1] = temp[1];
-			byteData[j+2] = temp[2];
-			byteData[j+3] = temp[3];
-			j += 4;
-		}		
+			buffer.putFloat(floatData[i]);
 		
-		return byteData;
+		return buffer.array();		
 	}
 	private void buildHeader()
 	{
@@ -87,10 +78,6 @@ public class Output extends File {
 	{
 		for(int i = 0; i < fileData.length; i++)
 			fos.write(fileData[i]);
-	}
-	private byte[] convertFloatToLSB(float value)
-	{	
-		return ByteBuffer.allocate(4).putFloat(value).array();
 	}
 	private byte[] convertIntToLSB(int value)
 	{

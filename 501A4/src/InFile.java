@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 
 public class InFile extends File {	
 	public InFile(String fileName) {
@@ -54,7 +56,6 @@ public class InFile extends File {
 	private void readHeader(FileInputStream fis) throws IOException
 	{
 		byte [] values;
-		String tempo;
 		//4		
 		values = new byte[4];
 		values[0] = (byte) fis.read();
@@ -193,17 +194,17 @@ public class InFile extends File {
 	}
 	public float[] convertDataToFloat(byte[] byteData)
 	{
-		float [] floatData = new float[byteData.length/4];
-		int j = 0;
-		for(int i = 0; i < floatData.length; i++)
-		{
-			floatData[i] = readFloatLSB(byteData[j], 
-										byteData[j+1],
-										byteData[j+2],
-										byteData[j+3]);
-			j+=4;
+		ByteBuffer buffer = ByteBuffer.wrap(byteData);
+		FloatBuffer fBuffer = FloatBuffer.allocate(buffer.capacity()/4);
+		
+		while(buffer.hasRemaining()){
+			if(buffer.remaining() > 4)
+				fBuffer.put(buffer.getFloat());
+			else
+				break;
 		}
-		return floatData;
+		
+		return fBuffer.array();
 	}
 	
 	private void readSingleChannel(FileInputStream fis) throws IOException
@@ -215,14 +216,6 @@ public class InFile extends File {
 			temp = (byte) fis.read();
 			fileData[i] = temp;
 		}
-	}
-	private float readFloatLSB(byte a, byte b, byte c, byte d)
-	{
-		float i = (d & 0xff) << 24;
-			i += (c & 0xff) << 16;
-			i += (b & 0xff) << 8;
-			i += (a & 0xff);
-		return i;
 	}
 	private int readIntLSB(byte [] value)
 	{

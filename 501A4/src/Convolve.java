@@ -25,7 +25,7 @@ public class Convolve {
 			ir.data = ir.convertDataToDouble(ir.fileData);
 			ir.dataLength = ir.data.length;
 			//out.data = in.data;
-			//*DFT convolve;
+			/*DFT convolve;
 			double [] temp = new double [in.getDataLength() + ir.getDataLength()];
 			out.setData(temp);
 			out.dataLength = out.data.length;
@@ -33,7 +33,7 @@ public class Convolve {
 					ir.getDataLength(), out.getData(), out.getDataLength()) == -1)
 				System.out.println("Convolve Failed");
 			//*/
-			/*FFT convolve;
+			//*FFT convolve;
 			in.data = buildImaginary(in.data, in.dataLength);
 			in.dataLength = in.data.length;
 			ir.data = buildImaginary(ir.data, ir.dataLength);
@@ -42,13 +42,11 @@ public class Convolve {
 			if(in.dataLength<2 || (in.dataLength&(in.dataLength-1))!= 0){
 				int n = Integer.highestOneBit(in.dataLength);
 				n <<= 1;
-				System.out.println(in.dataLength + "; " + n);
 				in.data = zeroPadding(in.data, n);
 				in.dataLength = in.data.length;
 			}
 			ir.data = zeroPadding(ir.data, in.dataLength);
 			ir.dataLength = ir.data.length;
-			System.out.println("in=" + in.dataLength + "; ir=" + ir.dataLength);
 			four1(in.data, in.dataLength/2, 1);
 			four1(ir.data, in.dataLength/2, 1);
 			double [] temp = new double [in.getDataLength()];

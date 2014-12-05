@@ -1,6 +1,4 @@
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 
 public class InFile extends File {	
 	public InFile(String fileName) {
@@ -192,24 +190,24 @@ public class InFile extends File {
 		if(NumChannels == 1)
 			readSingleChannel(fis);
 	}
-	public float[] convertDataToFloat(byte[] byteData)
+	public double[] convertDataToDouble(byte[] byteData)
 	{
-		ByteBuffer buffer = ByteBuffer.wrap(byteData);
-		FloatBuffer fBuffer = FloatBuffer.allocate(buffer.capacity()/4);
-		
-		while(buffer.hasRemaining()){
-			if(buffer.remaining() > 4)
-				fBuffer.put(buffer.getFloat());
-			else
-				break;
+		double [] doubleArray  = new double [byteData.length / 2];
+		int j = 0;
+		for (int i = 0; i < byteData.length; i += 2){
+			byte [] step = {byteData[i], byteData[i+1]}; 
+			double d = (double) (((double) readShortLSB(step)) / 32768);
+			if(d > 1.0)
+				System.out.println(String.format("Bytes: %x, %x; Double: %f", step[0], step[1], d));
+			doubleArray[j++] = d;
 		}
 		
-		return fBuffer.array();
+		return doubleArray;
 	}
 	
 	private void readSingleChannel(FileInputStream fis) throws IOException
 	{
-		byte temp;//, i = 0;
+		byte temp;
 		fileData = new byte[Subchunk2Size - 8];
 		for(int i = 0; i < Subchunk2Size - 8; i++)
 		{

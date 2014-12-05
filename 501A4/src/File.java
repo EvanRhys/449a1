@@ -2,7 +2,7 @@ public class File {
 	protected boolean debug = true;
 	
 	protected String fileName;
-	protected float [] data;
+	protected double [] data;
 	protected int dataLength;
 	
 	//Wave Header Information
@@ -33,10 +33,10 @@ public class File {
 	public byte[] getFileData() {
 		return fileData;
 	}
-	public float[] getData() {
+	public double[] getData() {
 		return data;
 	}
-	public void setData(float[] data){
+	public void setData(double[] data){
 		this.data = data;
 	}
 	public int getDataLength() {

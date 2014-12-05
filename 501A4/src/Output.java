@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.ByteBuffer;
 
 public class Output extends File {
 
@@ -25,13 +24,18 @@ public class Output extends File {
 		return 0;
 	}
 	
-	public byte [] convertFloatToData(float[] floatData)
+	public byte [] convertDoubleToData(double[] doubleData)
 	{
-		ByteBuffer buffer = ByteBuffer.allocate(floatData.length*4);
-		for(int i = 0; i < floatData.length; i++)
-			buffer.putFloat(floatData[i]);
-		
-		return buffer.array();		
+		byte[] byteData = new byte [doubleData.length * 2];
+		int j = 0;
+		for (int i = 0; i < doubleData.length; i++){
+			short s = (short) (doubleData[i] * 32767);
+			byte [] values = convertShortToLSB(s);
+			byteData[j] = values[0];
+			byteData[j+1] = values[1];
+			j += 2;
+		}
+		return byteData;
 	}
 	private void buildHeader()
 	{
